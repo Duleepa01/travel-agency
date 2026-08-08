@@ -25,9 +25,26 @@ class PackageController extends Controller
         ]);
     }
 
-    public function store(Request $request){
+    public function store(Request $request)
+{
+    $validated = $request->validate([
+        'name' => 'required',
+        'description' => 'required',
+        'price' => 'required|numeric|min:0',
+        'duration_days' => 'required|integer|min:0',
+        'duration_nights' => 'required|integer|min:0',
+        'max_capacity' => 'required|integer|min:1',
+        'status' => 'required|in:draft,published,inactive',
+        'destinations' => 'nullable|array',
+        'destinations.*' => 'exists:destinations,id',
+    ]);
 
-    }
+    $package = Package::create($validated);
+
+    $package->destinations()->sync($validated['destinations'] ?? []);
+
+    return redirect()->route('packages.index');
+}
 
     public function edit(Package $package) {
         $destination = Destination::all();

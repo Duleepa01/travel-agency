@@ -9,6 +9,7 @@
     <nav>
         <a href="/customers">Customers</a>
         <a href="/packages">Packages</a>
+        <a href="/destinations">Destinations</a>
     </nav>
 
     <div class="container">

@@ -19,4 +19,11 @@ class Destination extends Model
                      ->withPivot('day_number')
                      ->withTimestamps();
     }
+
+    protected $fillable = [
+    'name',
+    'country_id',
+    'description',
+    'is_active',
+];
 }
