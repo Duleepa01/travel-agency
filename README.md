@@ -1,6 +1,6 @@
 # Travel Agency Management System
 
-A full-featured travel agency management system built with **Laravel 12**, developed as a learning project to build professional-grade Laravel skills from the ground up — covering database design, Eloquent relationships, validation, and clean MVC architecture.
+A full-featured travel agency management system built with **Laravel 12**, developed as a learning project to build professional-grade Laravel skills from the ground up - covering database design, Eloquent relationships, validation, and clean MVC architecture.
 
 > This project is still under active development. See [Roadmap](#roadmap) below for what's built and what's coming.
 
@@ -20,11 +20,11 @@ A full-featured travel agency management system built with **Laravel 12**, devel
 
 ### Implemented
 
-- **Customer Management** — full CRUD (create, view, edit, delete)
+- **Customer Management** - full CRUD (create, view, edit, delete)
   - Server-side validation with error display and input retention (`old()`)
   - Nationality and country of residence tracked via a normalized `countries` reference table
-- **Countries Reference Table** — seeded with ISO 3166-1 country data (name, alpha-2, alpha-3 codes)
-- **Package Management** — in progress
+- **Countries Reference Table** - seeded with ISO 3166-1 country data (name, alpha-2, alpha-3 codes)
+- **Package Management** - in progress
   - Core package fields (name, price, duration, capacity, status)
   - Many-to-many relationship with destinations
 
