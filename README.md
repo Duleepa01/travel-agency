@@ -142,6 +142,3 @@ routes/
 
 ---
 
-## License
-
-This is a personal learning project. No license specified yet.
