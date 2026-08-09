@@ -19,4 +19,14 @@ class Package extends Model
                      ->withPivot('day_number')
                      ->withTimestamps();
     }
+    protected $fillable = [
+    'name',
+    'description',
+    'price',
+    'duration_days',
+    'duration_nights',
+    'max_capacity',
+    'status',
+    'created_by',
+];
 }
