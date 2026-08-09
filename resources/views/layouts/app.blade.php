@@ -4,13 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'Travel Agency')</title>
+    @vite(['resources/css/app.css'])
 </head>
 <body>
-    <nav>
-        <a href="/customers">Customers</a>
-        <a href="/packages">Packages</a>
-        <a href="/destinations">Destinations</a>
-    </nav>
+    <header class="site-header">
+        <div class="inner">
+            <a href="{{ route('dashboard') }}" class="brand">Serendib<span>Travels</span></a>
+            <nav class="main-nav">
+                <a href="{{ route('dashboard') }}">Dashboard</a>
+                <a href="{{ route('customers.index') }}">Customers</a>
+                <a href="{{ route('packages.index') }}">Packages</a>
+                <a href="{{ route('destinations.index') }}">Destinations</a>
+            </nav>
+        </div>
+    </header>
 
     <div class="container">
         @yield('content')

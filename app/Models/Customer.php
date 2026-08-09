@@ -28,8 +28,6 @@ class Customer extends Model
     'email',
     'phone',
     'address',
-    'nationality',
-    'country_of_residence',
     'nationality_country_id',
     'residence_country_id',
     'created_by',

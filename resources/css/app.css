@@ -9,3 +9,170 @@
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
 }
+
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Inter:wght@400;500;600&display=swap');
+
+:root {
+    --ink: #1c2b33;
+    --ink-light: #46606c;
+    --paper: #faf7f2;
+    --surface: #ffffff;
+    --border: #e4dfd6;
+    --accent: #c1592f;
+    --accent-dark: #a3491f;
+    --success: #3f7d54;
+    --danger: #b3392f;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    font-family: 'Inter', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.5;
+}
+
+h1, h2, h3 {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    color: var(--ink);
+}
+
+.site-header {
+    background: var(--ink);
+    padding: 0 2rem;
+}
+.site-header .inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+}
+.brand {
+    font-family: 'Fraunces', serif;
+    font-size: 1.25rem;
+    color: #fff;
+    text-decoration: none;
+    letter-spacing: 0.02em;
+}
+.brand span { color: var(--accent); }
+.main-nav a {
+    color: #cfd8dc;
+    text-decoration: none;
+    margin-left: 1.75rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: color 0.15s;
+}
+.main-nav a:hover { color: #fff; }
+
+.container {
+    max-width: 1100px;
+    margin: 2.5rem auto;
+    padding: 0 1.5rem;
+}
+h1 { font-size: 1.75rem; margin-bottom: 0.25rem; }
+.page-intro { color: var(--ink-light); margin-bottom: 1.5rem; font-size: 0.95rem; }
+
+.stats {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+}
+.stat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    padding: 1.25rem 1.5rem;
+    flex: 1;
+    min-width: 160px;
+}
+.stat-card .stat-number {
+    font-family: 'Fraunces', serif;
+    font-size: 2rem;
+    color: var(--ink);
+    display: block;
+}
+.stat-card .stat-label {
+    color: var(--ink-light);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--surface);
+    border: 1px solid var(--border);
+}
+th, td {
+    text-align: left;
+    padding: 0.7rem 1rem;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.92rem;
+}
+th {
+    background: #f3efe8;
+    font-weight: 600;
+    color: var(--ink-light);
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: #fbf9f5; }
+
+form { display: inline; }
+label {
+    display: block;
+    margin-top: 1rem;
+    margin-bottom: 0.3rem;
+    font-weight: 500;
+    font-size: 0.88rem;
+    color: var(--ink);
+}
+input, select, textarea {
+    padding: 0.55rem 0.7rem;
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    width: 100%;
+    max-width: 420px;
+    font-family: inherit;
+    font-size: 0.92rem;
+    background: var(--surface);
+}
+input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+}
+select[multiple] { max-width: 420px; height: auto; min-height: 120px; }
+textarea { min-height: 90px; }
+
+button, .button-link {
+    display: inline-block;
+    background: var(--ink);
+    color: #fff;
+    border: none;
+    padding: 0.55rem 1.1rem;
+    border-radius: 3px;
+    font-size: 0.88rem;
+    font-weight: 500;
+    text-decoration: none;
+    cursor: pointer;
+    margin-top: 1rem;
+}
+button:hover, .button-link:hover { background: #0f181d; }
+.button-link.primary, form button[type="submit"] { background: var(--accent); }
+.button-link.primary:hover, form button[type="submit"]:hover { background: var(--accent-dark); }
+
+td a { color: var(--ink-light); text-decoration: none; margin-right: 0.75rem; font-size: 0.85rem; }
+td a:hover { color: var(--accent); text-decoration: underline; }
+td button { background: none; color: var(--danger); padding: 0; margin: 0; font-size: 0.85rem; font-weight: 500; }
+td button:hover { background: none; text-decoration: underline; }
+
+.field-error { color: var(--danger); font-size: 0.82rem; margin-top: 0.25rem; }
