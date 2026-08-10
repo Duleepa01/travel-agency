@@ -28,7 +28,7 @@ A full-featured travel agency management system built with **Laravel 12**, devel
   - Core package fields (name, price, duration, capacity, status)
   - Many-to-many relationship with destinations
 
-### 🚧 Planned
+### Planned
 
 - Tour Package full CRUD with destination selection
 - Booking Management
