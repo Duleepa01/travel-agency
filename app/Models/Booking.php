@@ -32,4 +32,10 @@ class Booking extends Model
     {
         return $this->belongsTo(User::class, 'created_by');
     }
+    protected function casts(): array
+{
+    return [
+        'travel_date' => 'date',
+    ];
+}
 }

@@ -5,7 +5,9 @@ use App\Http\Controllers\PackageController;
 use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DestinationController;
+use App\Http\Controllers\BookingController;
 
+Route::resource('bookings', BookingController::class);
 Route::resource('destinations', DestinationController::class);
 Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 Route::resource('customers', CustomerController::class);

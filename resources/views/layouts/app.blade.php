@@ -15,6 +15,7 @@
                 <a href="{{ route('customers.index') }}">Customers</a>
                 <a href="{{ route('packages.index') }}">Packages</a>
                 <a href="{{ route('destinations.index') }}">Destinations</a>
+                <a href="{{ route('bookings.index') }}">Bookings</a>
             </nav>
         </div>
     </header>
