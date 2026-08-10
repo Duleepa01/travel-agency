@@ -1,178 +1,490 @@
 @import 'tailwindcss';
 
-@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
-@source '../../storage/framework/views/*.php';
-@source '../**/*.blade.php';
-@source '../**/*.js';
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/.blade.php';@source '../../storage/framework/views/.php';@source '..//*.blade.php';@source '..//*.js';
 
-@theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
-}
+@theme {--font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji','Segoe UI Symbol', 'Noto Color Emoji';}
 
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Inter:wght@400;500;600&display=swap');
+/* ==========================================================================
+   FONTS
+   Fraunces (serif, editorial, variable optical size + italic) for display.
+   Inter (sans) for body/UI — kept from the original system, weight range
+   widened so the hierarchy has room to breathe.
+   ========================================================================== */
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500;1,9..144,600&family=Inter:wght@400;500;600;700&display=swap');
 
+/* ==========================================================================
+   DESIGN TOKENS
+   Palette: warm parchment ground, deep espresso ink, antique brass accent,
+   deep pine secondary. Kept intentionally narrow — earth + old travel-
+   journal, not a rainbow of "travel" colors.
+   ========================================================================== */
 :root {
-    --ink: #1c2b33;
-    --ink-light: #46606c;
-    --paper: #faf7f2;
-    --surface: #ffffff;
-    --border: #e4dfd6;
-    --accent: #c1592f;
-    --accent-dark: #a3491f;
-    --success: #3f7d54;
-    --danger: #b3392f;
+  /* -- color: ground & surface -- */
+  --paper: #f4ecdc;           /* warm parchment page background */
+  --paper-tint: #ece0c9;      /* slightly deeper parchment, for zebra/alt sections */
+  --surface: #fffdf7;         /* card/table/input surface, warm off-white */
+  --ink: #241f19;             /* near-black espresso, primary text */
+  --ink-soft: #3c352b;        /* headings on light, softer than pure ink */
+  --ink-light: #746a5a;       /* secondary/meta text, warm taupe */
+  --border: #ddceac;          /* linen-brass border */
+  --border-strong: #c9b78d;
+
+  /* -- color: brand -- */
+  --accent: #96662b;          /* antique brass / burnt ochre — primary */
+  --accent-dark: #744f1f;
+  --accent-soft: #e7d3ab;     /* pale brass tint, for subtle fills */
+  --secondary: #3f5942;       /* deep pine/olive — secondary accent */
+  --secondary-dark: #2c4030;
+
+  /* -- color: state -- */
+  --success: #3f6b48;
+  --success-tint: #e3ecdf;
+  --warning: #9c6b1c;
+  --warning-tint: #f2e6cb;
+  --danger: #9c3a2c;
+  --danger-tint: #f3e0da;
+
+  /* -- typography -- */
+  --font-display: 'Fraunces', 'Iowan Old Style', Georgia, serif;
+  --font-body: 'Inter', ui-sans-serif, system-ui, sans-serif;
+
+  /* -- spacing scale -- */
+  --sp-1: 0.25rem;
+  --sp-2: 0.5rem;
+  --sp-3: 0.75rem;
+  --sp-4: 1rem;
+  --sp-5: 1.5rem;
+  --sp-6: 2rem;
+  --sp-7: 3rem;
+  --sp-8: 4.5rem;
+
+  /* -- radius: restrained, mostly rectangular -- */
+  --r-sm: 2px;
+  --r-md: 3px;
+  --r-lg: 5px;
+
+  /* -- shadow: quiet, realistic -- */
+  --shadow-sm: 0 1px 2px rgba(36, 31, 25, 0.08);
+  --shadow-md: 0 6px 20px -6px rgba(36, 31, 25, 0.18);
+
+  --ease: 200ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+/* ==========================================================================
+   RESET / BASE
+   ========================================================================== */
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
+html { -webkit-font-smoothing: antialiased; }
+
 body {
-    font-family: 'Inter', sans-serif;
-    background: var(--paper);
-    color: var(--ink);
-    line-height: 1.5;
+  font-family: var(--font-body);
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.6;
+  font-size: 16px;
 }
 
 h1, h2, h3 {
-    font-family: 'Fraunces', serif;
-    font-weight: 600;
-    color: var(--ink);
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: var(--ink-soft);
+  line-height: 1.15;
+  letter-spacing: -0.01em;
 }
 
+h1 { font-size: 2rem; }
+h2 { font-size: 1.4rem; }
+h3 { font-size: 1.1rem; }
+
+a { color: inherit; }
+
+::selection { background: var(--accent-soft); color: var(--ink); }
+
+/* visible keyboard focus everywhere, styled once */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* ==========================================================================
+   HEADER / NAVIGATION
+   Dark espresso bar, brass wordmark, understated link treatment with a
+   hairline underline on hover rather than a pill/background hover.
+   ========================================================================== */
 .site-header {
-    background: var(--ink);
-    padding: 0 2rem;
+  background: var(--ink);
+  padding: 0 2rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
+
 .site-header .inner {
-    max-width: 1100px;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 64px;
+  max-width: 1160px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 68px;
+  gap: var(--sp-5);
 }
+
 .brand {
-    font-family: 'Fraunces', serif;
-    font-size: 1.25rem;
-    color: #fff;
-    text-decoration: none;
-    letter-spacing: 0.02em;
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #f7f1e4;
+  text-decoration: none;
+  letter-spacing: 0.01em;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.15em;
 }
-.brand span { color: var(--accent); }
+
+.brand span {
+  color: var(--accent-soft);
+  font-style: italic;
+  font-weight: 500;
+}
+
+.main-nav {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
 .main-nav a {
-    color: #cfd8dc;
-    text-decoration: none;
-    margin-left: 1.75rem;
-    font-size: 0.9rem;
-    font-weight: 500;
-    transition: color 0.15s;
+  position: relative;
+  color: #cdc4b2;
+  text-decoration: none;
+  margin-left: 1.9rem;
+  font-size: 0.82rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 0.4rem 0;
+  transition: color var(--ease);
 }
+
+.main-nav a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 100%;
+  bottom: 0;
+  height: 1px;
+  background: var(--accent-soft);
+  transition: right var(--ease);
+}
+
 .main-nav a:hover { color: #fff; }
+.main-nav a:hover::after { right: 0; }
 
+/* ==========================================================================
+   PAGE CONTAINER / HEADINGS
+   The route-line beneath the intro is the page's small signature motif —
+   a dotted "itinerary" rule with a departure marker, standing in for the
+   dividers a generic dashboard would render as a plain <hr>.
+   ========================================================================== */
 .container {
-    max-width: 1100px;
-    margin: 2.5rem auto;
-    padding: 0 1.5rem;
+  max-width: 1160px;
+  margin: var(--sp-7) auto;
+  padding: 0 1.5rem;
 }
-h1 { font-size: 1.75rem; margin-bottom: 0.25rem; }
-.page-intro { color: var(--ink-light); margin-bottom: 1.5rem; font-size: 0.95rem; }
 
+.container h1 { font-size: 1.85rem; margin-bottom: 0.35rem; }
+
+.page-intro {
+  position: relative;
+  color: var(--ink-light);
+  margin-bottom: var(--sp-6);
+  padding-bottom: var(--sp-5);
+  font-size: 0.98rem;
+  max-width: 60ch;
+}
+
+.page-intro::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 220px;
+  height: 1px;
+  background-image: linear-gradient(to right, var(--border-strong) 0, var(--border-strong) 4px, transparent 4px, transparent 9px);
+  background-size: 9px 1px;
+  background-repeat: repeat-x;
+}
+
+.page-intro::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+/* ==========================================================================
+   STATS
+   Deliberately not five identical floating cards: a hairline-separated
+   strip with one figure given quiet emphasis via type size, not color.
+   ========================================================================== */
 .stats {
-    display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
-    margin-bottom: 2rem;
+  display: flex;
+  gap: 0;
+  flex-wrap: wrap;
+  margin-bottom: var(--sp-7);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
 }
+
 .stat-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-left: 3px solid var(--accent);
-    padding: 1.25rem 1.5rem;
-    flex: 1;
-    min-width: 160px;
+  background: transparent;
+  border: none;
+  border-left: 1px solid var(--border);
+  padding: 1.4rem 1.75rem;
+  flex: 1;
+  min-width: 150px;
+  position: relative;
 }
+
+.stat-card:first-child { border-left: none; }
+
+/* first figure reads as the "headline" stat of the strip */
+.stat-card:first-child .stat-number {
+  font-size: 2.5rem;
+  color: var(--accent-dark);
+}
+
+.stat-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -1px;
+  width: 2px;
+  height: 0;
+  background: var(--accent);
+  transition: height var(--ease);
+}
+
+.stat-card:hover::before { height: 100%; }
+
 .stat-card .stat-number {
-    font-family: 'Fraunces', serif;
-    font-size: 2rem;
-    color: var(--ink);
-    display: block;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 2rem;
+  color: var(--ink-soft);
+  display: block;
+  line-height: 1;
+  margin-bottom: 0.4rem;
+  font-variant-numeric: oldstyle-nums;
 }
+
 .stat-card .stat-label {
-    color: var(--ink-light);
-    font-size: 0.85rem;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
+  color: var(--ink-light);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  font-weight: 600;
 }
 
+/* ==========================================================================
+   TABLES
+   Spacious, hairline-separated, no heavy grid lines. Header row reads as
+   quiet metadata rather than a colored bar.
+   ========================================================================== */
 table {
-    width: 100%;
-    border-collapse: collapse;
-    background: var(--surface);
-    border: 1px solid var(--border);
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  overflow: hidden;
 }
+
 th, td {
-    text-align: left;
-    padding: 0.7rem 1rem;
-    border-bottom: 1px solid var(--border);
-    font-size: 0.92rem;
+  text-align: left;
+  padding: 0.85rem 1.1rem;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.9rem;
 }
+
 th {
-    background: #f3efe8;
-    font-weight: 600;
-    color: var(--ink-light);
-    font-size: 0.78rem;
-    text-transform: uppercase;
-    letter-spacing: 0.03em;
+  background: var(--paper-tint);
+  font-weight: 600;
+  color: var(--ink-light);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  border-bottom: 1px solid var(--border-strong);
 }
+
 tr:last-child td { border-bottom: none; }
-tr:hover td { background: #fbf9f5; }
 
+tr:hover td { background: #fbf6ea; }
+
+/* horizontal scroll on small screens instead of overflow breakage */
+@media (max-width: 720px) {
+  table { display: block; overflow-x: auto; white-space: nowrap; }
+}
+
+/* ==========================================================================
+   FORMS
+   Comfortable, consistent field heights; brass focus ring instead of the
+   default browser blue; clear, unmistakable error state.
+   ========================================================================== */
 form { display: inline; }
+
 label {
-    display: block;
-    margin-top: 1rem;
-    margin-bottom: 0.3rem;
-    font-weight: 500;
-    font-size: 0.88rem;
-    color: var(--ink);
+  display: block;
+  margin-top: var(--sp-4);
+  margin-bottom: 0.35rem;
+  font-weight: 600;
+  font-size: 0.8rem;
+  letter-spacing: 0.02em;
+  color: var(--ink-soft);
 }
+
 input, select, textarea {
-    padding: 0.55rem 0.7rem;
-    border: 1px solid var(--border);
-    border-radius: 3px;
-    width: 100%;
-    max-width: 420px;
-    font-family: inherit;
-    font-size: 0.92rem;
-    background: var(--surface);
+  padding: 0.62rem 0.8rem;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--r-sm);
+  width: 100%;
+  max-width: 420px;
+  font-family: inherit;
+  font-size: 0.92rem;
+  background: var(--surface);
+  color: var(--ink);
+  transition: border-color var(--ease), box-shadow var(--ease);
 }
+
+input::placeholder, textarea::placeholder { color: #a89b83; }
+
+input:hover, select:hover, textarea:hover { border-color: var(--ink-light); }
+
 input:focus, select:focus, textarea:focus {
-    outline: none;
-    border-color: var(--accent);
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
 }
-select[multiple] { max-width: 420px; height: auto; min-height: 120px; }
-textarea { min-height: 90px; }
 
+select[multiple] { max-width: 420px; height: auto; min-height: 130px; }
+textarea { min-height: 100px; }
+
+.field-error {
+  color: var(--danger);
+  font-size: 0.8rem;
+  margin-top: 0.3rem;
+  font-weight: 500;
+}
+
+/* ==========================================================================
+   BUTTONS
+   Rectangular with a hairline shift on radius, not a pill. Primary in
+   brass, neutral/secondary in ink; underline-style ghost for table actions.
+   ========================================================================== */
 button, .button-link {
-    display: inline-block;
-    background: var(--ink);
-    color: #fff;
-    border: none;
-    padding: 0.55rem 1.1rem;
-    border-radius: 3px;
-    font-size: 0.88rem;
-    font-weight: 500;
-    text-decoration: none;
-    cursor: pointer;
-    margin-top: 1rem;
+  display: inline-block;
+  background: var(--ink);
+  color: #f7f1e4;
+  border: 1px solid var(--ink);
+  padding: 0.6rem 1.3rem;
+  border-radius: var(--r-sm);
+  font-family: var(--font-body);
+  font-size: 0.84rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  cursor: pointer;
+  margin-top: var(--sp-4);
+  transition: background var(--ease), border-color var(--ease), transform var(--ease);
 }
-button:hover, .button-link:hover { background: #0f181d; }
-.button-link.primary, form button[type="submit"] { background: var(--accent); }
-.button-link.primary:hover, form button[type="submit"]:hover { background: var(--accent-dark); }
 
-td a { color: var(--ink-light); text-decoration: none; margin-right: 0.75rem; font-size: 0.85rem; }
-td a:hover { color: var(--accent); text-decoration: underline; }
-td button { background: none; color: var(--danger); padding: 0; margin: 0; font-size: 0.85rem; font-weight: 500; }
+button:hover, .button-link:hover {
+  background: #14100c;
+  border-color: #14100c;
+}
+
+button:active, .button-link:active { transform: translateY(1px); }
+
+.button-link.primary, form button[type="submit"] {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+.button-link.primary:hover, form button[type="submit"]:hover {
+  background: var(--accent-dark);
+  border-color: var(--accent-dark);
+}
+
+/* ==========================================================================
+   IN-TABLE ACTIONS
+   ========================================================================== */
+td a {
+  color: var(--ink-light);
+  text-decoration: none;
+  margin-right: 0.85rem;
+  font-size: 0.83rem;
+  font-weight: 500;
+  border-bottom: 1px solid transparent;
+  transition: color var(--ease), border-color var(--ease);
+}
+
+td a:hover {
+  color: var(--accent-dark);
+  border-bottom-color: var(--accent-dark);
+  text-decoration: none;
+}
+
+td button {
+  background: none;
+  color: var(--danger);
+  border: none;
+  padding: 0;
+  margin: 0;
+  font-size: 0.83rem;
+  font-weight: 500;
+}
+
 td button:hover { background: none; text-decoration: underline; }
 
-.field-error { color: var(--danger); font-size: 0.82rem; margin-top: 0.25rem; }
+/* ==========================================================================
+   RESPONSIVE
+   ========================================================================== */
+@media (max-width: 860px) {
+  .container { margin: var(--sp-6) auto; }
+  .stats { flex-direction: column; }
+  .stat-card { border-left: none; border-bottom: 1px solid var(--border); }
+  .stat-card:last-child { border-bottom: none; }
+  .stat-card::before { width: 100%; height: 0; top: auto; bottom: -1px; left: 0; }
+  .stat-card:hover::before { width: 100%; height: 2px; }
+}
+
+@media (max-width: 640px) {
+  .site-header { padding: 0 1.25rem; }
+  .site-header .inner { flex-wrap: wrap; height: auto; padding: 0.9rem 0; gap: 0.6rem; }
+  .main-nav { width: 100%; justify-content: flex-start; gap: 0; margin-left: -0.4rem; }
+  .main-nav a { margin-left: 1.1rem; font-size: 0.78rem; }
+
+  .container { padding: 0 1.1rem; }
+  h1 { font-size: 1.5rem; }
+  .container h1 { font-size: 1.5rem; }
+
+  input, select, textarea, select[multiple] { max-width: 100%; }
+
+  button, .button-link { width: 100%; text-align: center; }
+  td button, .button-link.small { width: auto; }
+}
+
+/* ==========================================================================
+   MOTION PREFERENCES
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    transition-duration: 0.001ms !important;
+    animation-duration: 0.001ms !important;
+  }
+}
